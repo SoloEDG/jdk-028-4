@@ -793,6 +793,306 @@ small {
   font-size: 17px;
   fill: #8196a4;
 }
+/* ---------- 时序实验 ---------- */
+.power-light.clocking {
+  background: #49b6a8;
+  box-shadow: 0 0 8px #49b6a888;
+}
+.timing-mode .workbench {
+  grid-template-columns: 208px minmax(450px, 1fr) 286px;
+}
+.gate-node.is-timing .node-body {
+  fill: #f4faf9;
+  stroke: #5b9aa1;
+}
+.gate-node.is-violated .node-body {
+  stroke: #c45024;
+  stroke-width: 2.5;
+  fill: #fff1ec;
+  animation: violation-pulse 1.1s ease-in-out infinite;
+}
+@keyframes violation-pulse {
+  50% {
+    stroke: #ef8a5f;
+    fill: #ffe4d8;
+  }
+}
+.dff-port-name {
+  font:
+    8px Menlo,
+    monospace;
+  fill: #5b7686;
+}
+.dff-q {
+  font:
+    700 13px Menlo,
+    monospace;
+  fill: #2a4b5d;
+}
+.dff-state {
+  font:
+    700 15px Menlo,
+    monospace;
+}
+.port-tag {
+  font:
+    8px Menlo,
+    monospace;
+  fill: #7e96a3;
+}
+.port-reset {
+  stroke: #b07a52;
+}
+.clock-led {
+  stroke-width: 1;
+  stroke: #4f8b93;
+}
+.rack-switch.disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+.rack-tag {
+  font-style: normal;
+  font-size: 9px;
+  color: #93a7b2;
+  border: 1px solid #cfdbe1;
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin-left: 4px;
+}
+.timing-instruments {
+  grid-template-columns: 0.85fr 1.6fr;
+}
+.timing-panel {
+  border-left: 1px solid var(--line);
+  padding: 16px 18px;
+  display: grid;
+  gap: 16px;
+  background: #fcfefe;
+  min-width: 0;
+}
+.timing-block {
+  border: 1px solid #e0e9ec;
+  border-radius: 8px;
+  padding: 13px 14px;
+  background: #fff;
+}
+.clock-block {
+  background: #f2f8f8;
+  border-color: #cfe3e3;
+}
+.clock-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.step-button {
+  font-weight: 600;
+}
+.reset-button.asserted {
+  background: #fdeee2;
+  border-color: #e0a06f;
+  color: #a44e16;
+}
+.cycle-readout {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 11px;
+  font-size: 12px;
+  color: #51707f;
+}
+.cycle-readout b {
+  font:
+    700 17px Menlo,
+    monospace;
+  color: #147b87;
+  margin-left: 4px;
+}
+.warn-text {
+  color: #c45024;
+  font-size: 11px;
+}
+.pending-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  font-size: 11px;
+  color: #7d5a33;
+  line-height: 1.9;
+}
+.timing-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin-top: 10px;
+}
+.timing-fields label {
+  font-size: 11px;
+  color: #5b7686;
+  display: grid;
+  gap: 5px;
+}
+.timing-fields input {
+  width: 100%;
+  padding: 6px;
+  font:
+    13px Menlo,
+    monospace;
+}
+.stimulus-table {
+  width: 100%;
+  border-collapse: collapse;
+  font:
+    11px Menlo,
+    monospace;
+  margin-top: 8px;
+}
+.stimulus-table th {
+  font:
+    9px "PingFang SC",
+    sans-serif;
+  color: #7b929e;
+  font-weight: 500;
+  padding: 4px 2px;
+}
+.cell-bit {
+  width: 26px;
+  height: 24px;
+  padding: 0;
+  font:
+    600 12px Menlo,
+    monospace;
+}
+.cell-bit.bit-on {
+  background: #df671c;
+  border-color: #b94d0c;
+  color: #fff;
+}
+.cell-bit.bit-off {
+  background: #eef3f5;
+  color: #7b8fa0;
+}
+.loop-alert {
+  background: #fdf0ec;
+  border-color: #ecc2b2;
+  color: #b0491f;
+}
+.loop-alert p {
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 7px 0 0;
+}
+.trace-panel {
+  background: #fff;
+  border-top: 1px solid var(--line);
+  padding: 16px 20px;
+}
+.trace-scroll {
+  overflow-x: auto;
+}
+.trace-table {
+  border-collapse: collapse;
+  width: 100%;
+  font:
+    12px Menlo,
+    monospace;
+  text-align: center;
+  margin-top: 8px;
+}
+.trace-table th {
+  font:
+    10px "PingFang SC",
+    sans-serif;
+  background: #f2f6f8;
+  color: #6e8796;
+  font-weight: 500;
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+.trace-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e7edf1;
+}
+.trace-table tr.row-violation {
+  background: #fff3ee;
+}
+.kind-cell {
+  font-size: 10px;
+  color: #8aa0ac;
+  font-family: "PingFang SC", sans-serif;
+}
+.trace-bit {
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.trace-bit.violated {
+  background: #c45024;
+  color: #fff;
+}
+.violation-pill {
+  background: #fbe3d8;
+  color: #b0491f;
+  font-size: 10px;
+  font-family: "PingFang SC", sans-serif;
+  padding: 3px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.ok-pill {
+  color: #b3c2cb;
+}
+.trace-notes {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: grid;
+  gap: 5px;
+}
+.trace-note {
+  font-size: 11px;
+  color: #6e8796;
+  line-height: 1.7;
+}
+.trace-note.bad {
+  color: #b0491f;
+}
+.trace-note b {
+  color: #147b87;
+}
+.timing-guide {
+  border-left: 1px solid var(--line);
+  background: #fff;
+}
+.guide-list {
+  margin: 18px 0;
+  padding-left: 20px;
+  color: #5d7887;
+  font-size: 12px;
+  line-height: 2.1;
+}
+.guide-tip {
+  background: #ecf4f5;
+  border: 1px solid #d8e7e9;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 11px;
+  color: #46697a;
+  line-height: 1.8;
+}
+.guide-tip b {
+  color: #147b87;
+}
+.mode-button {
+  background: #147b87;
+  border-color: #147b87;
+  color: #fff;
+}
+.export-button.trace {
+  background: #6d4a86;
+  border-color: #6d4a86;
+}
 @media (min-width: 1600px) {
   .workbench {
     grid-template-columns: 230px minmax(450px, 1fr) 300px;

@@ -1,5 +1,5 @@
 import type { GateNode, Point } from "@/shared/types";
-import { getSpec } from "@/features/catalog";
+import { getSpec } from "@/features/catalog/lib/specs";
 export const BOARD = {
   width: 1000,
   height: 520,

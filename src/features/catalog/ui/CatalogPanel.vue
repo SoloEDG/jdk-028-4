@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import type { GateKind } from "@/shared/types";
+import { computed } from "vue";
+import type { GateKind, LabMode } from "@/shared/types";
 import { gateSpecs } from "../lib/specs";
 import GateTile from "./GateTile.vue";
-defineProps<{ tool: GateKind | null }>();
+const props = defineProps<{ tool: GateKind | null; mode: LabMode }>();
 defineEmits<{ choose: [kind: GateKind | null] }>();
+const visibleSpecs = computed(() =>
+  gateSpecs.filter((spec) =>
+    props.mode === "timing" ? true : !spec.timingOnly,
+  ),
+);
 </script>
 <template>
   <aside class="catalog panel">
@@ -13,7 +19,7 @@ defineEmits<{ choose: [kind: GateKind | null] }>();
     <p class="panel-help">选择元件，再点击工作台放置。</p>
     <div class="gate-list">
       <GateTile
-        v-for="spec in gateSpecs"
+        v-for="spec in visibleSpecs"
         :key="spec.kind"
         :spec="spec"
         :active="tool === spec.kind"

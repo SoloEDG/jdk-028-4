@@ -7,7 +7,10 @@
     "dev": "vite --host 0.0.0.0",
     "typecheck": "vue-tsc --noEmit",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "test:timing": "esbuild scripts/verify-timing.mts --bundle --platform=node --format=esm --alias:@=./src --outfile=node_modules/.cache/verify-timing.mjs && node node_modules/.cache/verify-timing.mjs",
+    "test:codec": "esbuild scripts/verify-codec.mts --bundle --platform=node --format=esm --alias:@=./src --outfile=node_modules/.cache/verify-codec.mjs && node node_modules/.cache/verify-codec.mjs",
+    "test": "npm run test:timing && npm run test:codec"
   },
   "dependencies": {
     "vue": "^3.5.24"

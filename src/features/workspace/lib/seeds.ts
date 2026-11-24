@@ -1,9 +1,11 @@
 import type { CircuitDocument } from "@/shared/types";
+import { pipelineCircuit } from "@/features/timing/lib/seeds";
 export function sampleCircuit(): CircuitDocument {
   return {
     version: 1,
     name: "我的异或电路",
     targetId: "xor",
+    mode: "combinational",
     nodes: [
       { id: "a", kind: "INPUT", label: "A", value: 0, x: 60, y: 120 },
       { id: "b", kind: "INPUT", label: "B", value: 0, x: 60, y: 340 },
@@ -51,12 +53,15 @@ export function sampleCircuit(): CircuitDocument {
     ],
   };
 }
-export function emptyCircuit(): CircuitDocument {
+export function emptyCircuit(mode: CircuitDocument["mode"] = "combinational"): CircuitDocument {
   return {
     version: 1,
-    name: "未命名实验",
+    name: mode === "timing" ? "未命名时序实验" : "未命名实验",
     targetId: "xor",
+    mode,
+    timing: mode === "timing" ? { setup: 2, hold: 2, stimulusOffset: 4 } : undefined,
     nodes: [],
     wires: [],
   };
 }
+export { pipelineCircuit };

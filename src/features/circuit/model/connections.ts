@@ -1,7 +1,7 @@
-import type { CircuitDocument, Endpoint } from "@/shared/types";
+import type { CircuitDocument, Endpoint, LabMode } from "@/shared/types";
 import { getSpec } from "@/features/catalog";
 import { createId, findNode } from "@/shared/document";
-import { topologicalOrder } from "../lib/graph";
+import { analyzeGraph, topologicalOrder } from "../lib/graph";
 export function validateConnection(
   document: CircuitDocument,
   from: Endpoint,
@@ -26,11 +26,18 @@ export function validateConnection(
     )
   )
     return "这个输入端口已有连线，请先选择旧连线并删除";
+  const candidate: CircuitDocument = {
+    ...document,
+    wires: [...document.wires, { id: "candidate", from, to }],
+  };
+  if (document.mode === "timing") {
+    const { combinationalLoops } = analyzeGraph(candidate);
+    if (combinationalLoops.length)
+      return "该连线形成了不经过寄存器的纯组合反馈环，电平会无法稳定；请让反馈经过 D 寄存器";
+    return null;
+  }
   try {
-    topologicalOrder({
-      ...document,
-      wires: [...document.wires, { id: "candidate", from, to }],
-    });
+    topologicalOrder(candidate);
   } catch {
     return "该连线会形成反馈环；请连接到下游元件";
   }
@@ -49,4 +56,8 @@ export function connect(
       to: { ...to },
     });
   return error;
+}
+export function modeAllowsKind(mode: LabMode, kind: string): boolean {
+  const spec = getSpec(kind);
+  return mode === "timing" ? true : !spec.timingOnly;
 }

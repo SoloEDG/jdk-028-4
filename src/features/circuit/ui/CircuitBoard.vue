@@ -3,6 +3,7 @@ import { ref } from "vue";
 import type {
   CircuitDocument,
   GateKind,
+  LabMode,
   SimulationResult,
   Point,
 } from "@/shared/types";
@@ -16,6 +17,7 @@ const props = defineProps<{
   selected: string | null;
   pending: PortRequest | null;
   tool: GateKind | null;
+  mode: LabMode;
 }>();
 const emit = defineEmits<{
   place: [point: Point];
@@ -81,7 +83,11 @@ function background(event: PointerEvent) {
         @pointerdown="background"
       />
       <text x="25" y="29" class="board-caption">
-        COMBINATIONAL CIRCUIT / 组合逻辑接线台
+        {{
+          mode === "timing"
+            ? "SEQUENTIAL CIRCUIT / 时序流水接线台"
+            : "COMBINATIONAL CIRCUIT / 组合逻辑接线台"
+        }}
       </text>
       <WireLayer
         :document="document"
@@ -96,6 +102,7 @@ function background(event: PointerEvent) {
         :value="signals.values[node.id] ?? 'X'"
         :selected="selected === node.id"
         :pending="pending?.nodeId === node.id"
+        :violated="(signals.violations ?? []).includes(node.id)"
         @start-drag="startDrag"
         @port="emit('port', $event)"
         @toggle="emit('toggle', $event)"

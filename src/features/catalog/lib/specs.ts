@@ -64,9 +64,38 @@ export const gateSpecs: readonly GateSpec[] = [
     outputs: 1,
     description: "或门结果取反",
   },
+  {
+    kind: "CLOCK",
+    name: "周期时钟",
+    symbol: "CLK",
+    inputs: 0,
+    outputs: 1,
+    description: "手动单步的周期时钟，每次单步产生一个上升沿",
+    timingOnly: true,
+  },
+  {
+    kind: "RESET",
+    name: "异步复位源",
+    symbol: "RST",
+    inputs: 0,
+    outputs: 1,
+    description: "异步复位开关，按下立即清零寄存器，释放不产生采样边沿",
+    timingOnly: true,
+  },
+  {
+    kind: "DFF",
+    name: "上升沿寄存器",
+    symbol: "D Q",
+    inputs: 3,
+    outputs: 1,
+    description: "上升沿触发 D 寄存器：D 数据、CLK 时钟、RST 异步低有效复位",
+    timingOnly: true,
+  },
 ];
 export function getSpec(kind: string): GateSpec {
   const spec = gateSpecs.find((item) => item.kind === kind);
   if (!spec) throw new Error(`未知元件类型：${kind}`);
   return spec;
 }
+/** D 寄存器端口约定：0=D 数据，1=CLK 时钟，2=RST 异步复位。 */
+export const DFF_PORTS = { D: 0, CLK: 1, RST: 2 } as const;

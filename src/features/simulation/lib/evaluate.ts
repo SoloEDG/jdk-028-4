@@ -1,6 +1,6 @@
 import type { CircuitDocument, SimulationResult, Signal } from "@/shared/types";
-import { getSpec } from "@/features/catalog";
-import { topologicalOrder } from "@/features/circuit";
+import { getSpec } from "@/features/catalog/lib/specs";
+import { topologicalOrder } from "@/features/circuit/lib/graph";
 import { gateValue } from "./logic";
 export function evaluate(
   document: CircuitDocument,
